@@ -60,7 +60,7 @@ pexpect==4.9.0
 pillow==10.3.0
 platformdirs==4.2.0
 plotly==5.20.0
-plotly-express==0.4.1
+plotly-express==0.4.0
 prompt-toolkit==3.0.43
 protobuf==4.25.3
 psutil==5.9.8
