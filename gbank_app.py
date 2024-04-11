@@ -59,7 +59,7 @@ try:
 
         total_customer = df[filters]['CustomerId'].count()
         mean_balance = round(df[filters]['Balance'].mean(), 2)
-
+        selected_age_range
         if (total_customer != 0) and (mean_balance > 0 or mean_balance <= 0):
             st.metric('Total de Clientes', millify.millify(total_customer))
             st.metric('Média de Saldo em Conta',f'U$ {mean_balance}')
@@ -69,7 +69,7 @@ try:
         df_country_count.rename({'CustomerId': 'Clientes',
                                 'Geography': 'Pais'
                                 }, inplace=True, axis=1)
-        if len(selected_gender) > 0 and len(selected_country) > 0:
+        if (len(selected_gender) > 0) and (len(selected_country) > 0) and ((df['Age'].isin(selected_age_range).any()) == True ):
             bar = px.bar(df_country_count, title='Clientes por Paises', x='Pais', y='Clientes')
 
         st.plotly_chart(bar,use_container_width=True)
@@ -96,9 +96,6 @@ try:
 
 
     with col[1]:
-
-        
-        #plot bar
 
         #plot line
         df_age_product = df[filters].groupby('Age')[['NumOfProducts']].sum().reset_index()
@@ -166,8 +163,8 @@ except:
                     Por favor, selecione um intervalo que inclua idades entre {list_age[0]} e {list_age[-1]} anos"""
                     )
     elif (len(selected_age_range) == 0):
-       st.subheader(" Selecie um range de idade válido")
+       st.subheader(" Selecione um range de idade válido")
     elif len(selected_gender) == 0:
-       st.subheader("Selecie ao menos um Gênero")
+       st.subheader("Selecione ao menos um Gênero")
     elif len(selected_country) == 0:
-        st.subheader("Selecie ao menos um Pais")
+        st.subheader("Selecione ao menos um Pais")
