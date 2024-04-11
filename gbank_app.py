@@ -59,7 +59,7 @@ try:
 
         total_customer = df[filters]['CustomerId'].count()
         mean_balance = round(df[filters]['Balance'].mean(), 2)
-        selected_age_range
+   
         if (total_customer != 0) and (mean_balance > 0 or mean_balance <= 0):
             st.metric('Total de Clientes', millify.millify(total_customer))
             st.metric('Média de Saldo em Conta',f'U$ {mean_balance}')
