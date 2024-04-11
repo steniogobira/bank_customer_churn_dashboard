@@ -40,7 +40,11 @@ with st.sidebar:
         selected_status_customer = [1]
     else: selected_status_customer = [0]
 
-filters = (df['Age'].isin(selected_age_range)) & (df['Gender'].isin(selected_gender)) & (df['IsActiveMember'].isin(selected_status_customer))
+    #Country
+    list_country = df['Geography'].sort_values(ascending=True).unique()
+    selected_country = st.multiselect('Pais',list_country, default=list_country, help='Selecione ao menos um pais da lista')
+
+filters = ((df['Geography'].isin(selected_age_range)) & df['Age'].isin(selected_age_range)) & (df['Gender'].isin(selected_gender)) & (df['IsActiveMember'].isin(selected_status_customer))
 
 try:
     #Layout
