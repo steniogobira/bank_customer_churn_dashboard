@@ -54,22 +54,22 @@ try:
 
     with col[0]:
         
-        #Total Customers
-        total_customer = df[filters]['CustomerId'].count()
-        if total_customer != 0:
-            st.metric('Total de Clientes', millify.millify(total_customer))
+        #Total Customers e Saldo Médio dos Clientes
 
-        #Saldo Médio dos Clientes
+
+        total_customer = df[filters]['CustomerId'].count()
         mean_balance = round(df[filters]['Balance'].mean(), 2)
-        if mean_balance > 0 or mean_balance <= 0:
+
+        if (total_customer != 0) and (mean_balance > 0 or mean_balance <= 0):
+            st.metric('Total de Clientes', millify.millify(total_customer))
             st.metric('Média de Saldo em Conta',f'U$ {mean_balance}')
-        
+
         #plot bar
         df_country_count = df[filters].groupby(['Geography'])[['CustomerId']].count().reset_index()
         df_country_count.rename({'CustomerId': 'Clientes',
                                 'Geography': 'Pais'
                                 }, inplace=True, axis=1)
-        if len(selected_gender) > 0:
+        if len(selected_gender) > 0 and len(selected_country) > 0:
             bar = px.bar(df_country_count, title='Clientes por Paises', x='Pais', y='Clientes')
 
         st.plotly_chart(bar,use_container_width=True)
@@ -159,6 +159,7 @@ try:
 except:
 
     st.title('Opa! Pareceu que há algo de errado 🚨')
+
     if (df['Age'].isin(selected_age_range).any()) == False:
        st.subheader(f"""
                     Não existe dados para o range de idade. 
@@ -168,4 +169,5 @@ except:
        st.subheader(" Selecie um range de idade válido")
     elif len(selected_gender) == 0:
        st.subheader("Selecie ao menos um Gênero")
-    
+    elif len(selected_country) == 0:
+        st.subheader("Selecie ao menos um Pais")
