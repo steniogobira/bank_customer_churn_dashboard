@@ -30,7 +30,7 @@ with st.sidebar:
         selected_age_range = selecte_slide_age[1]
         age_filter = (df['Age'] == selected_age_range)
     else: 
-        selected_age_range = range(selecte_slide_age[0],selecte_slide_age[-1])
+        selected_age_range = range(selecte_slide_age[0],(selecte_slide_age[-1] + 1))
         age_filter = (df['Age'].isin(selected_age_range))
 
     #Gender
