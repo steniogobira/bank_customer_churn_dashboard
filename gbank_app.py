@@ -56,12 +56,9 @@ try:
     col = st.columns((0.50, 1, 0.7), gap='large')
 
     #collumn 1
-
     with col[0]:
         
         #Total Customers e Saldo Médio dos Clientes
-
-
         total_customer = df[filters]['CustomerId'].count()
         mean_balance = round(df[filters]['Balance'].mean(), 2)
    
@@ -98,10 +95,9 @@ try:
                             textposition='inside')
         st.plotly_chart(pie_age_card,use_container_width=True)
 
-
-
-
+    #collumn 2
     with col[1]:
+
         #Age vs Product
         df_age_product = df[filters].groupby('Age')[['NumOfProducts']].mean().reset_index()
         df_age_product.rename({'Age': 'Idade',
@@ -114,7 +110,6 @@ try:
                                 'CreditScore': 'Média de Score'
                                 }, inplace=True, axis=1)
         
-
         if selecte_slide_age[0] == selecte_slide_age[1]:
 
             #plot bar unique age Products
@@ -135,9 +130,9 @@ try:
             #plot line Scor
             line = px.line(df_age_score,title='Idade vs Média Score', x='Idade', y='Média de Score')
             st.plotly_chart(line,use_container_width=True)
-
+    #collumn 3
     with col[2]:
-        
+    
         st.markdown('### Top 10 Melhores Scores')
         df_score = df[filters][['Surname', 'Age', 'CreditScore']].sort_values(by=['CreditScore','Surname'], ascending=False).head(10).reset_index(drop=True)
         df_score.rename({'Surname': 'Nome',
@@ -175,6 +170,7 @@ try:
             )
         }
         )
+
 except:
 
     st.title('Opa! Parece que há algo de errado 🚨')
