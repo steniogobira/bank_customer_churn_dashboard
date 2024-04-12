@@ -11,7 +11,7 @@ df = pd.read_csv('data_cleaned.csv')
 # Page configuration
 
 st.set_page_config(
-    page_title="Customeres - GBank",
+    page_title="Customers - GBank",
     page_icon="💸",
     layout="wide",
     initial_sidebar_state="expanded")
